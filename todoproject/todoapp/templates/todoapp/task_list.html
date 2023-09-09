@@ -1,4 +1,12 @@
+{% if request.user.is_authenticated %}
+<p>{{request.user}}</p>
+{% comment %} <a href="{% url 'login' %}">ログアウト</a> {% endcomment %}
+{% else %}
+<a href="{% url 'login' %}">ログイン</a>
+{% endif %}
+
 <h1>Todoリスト</h1>
+<a href="{% url 'create-task' %}">タスクの追加</a>
 
 <table>
     <tr>
@@ -7,6 +15,9 @@
     {% for task in tasks %}
         <tr>
             <td>{{task.title}}</td>
+            <td><a href="{% url 'task' task.id %}">確認</td>
+            <td><a href="{% url 'edit-task' task.id %}">編集</td>
+            <td><a href="{% url 'delete-task' task.id %}">削除</td>
         </tr>
     {% endfor %}
 </table>
